@@ -1,13 +1,14 @@
 {
   "manifest_version": 2,
 
-  "name": "phrasle",
+  "name": "phrasal",
   "description": "This extension will compare a highlighted phrase with a database of news info",
   "version": "1.0",
-
+  "background": {
+    "scripts": ["indexTab.js"]
+  },
   "browser_action": {
-   "default_icon": "icon.png",
-   "default_popup": "indexTab.html"
+   "default_icon": "icon.png"
   },
   "permissions": [
          "tabs"
