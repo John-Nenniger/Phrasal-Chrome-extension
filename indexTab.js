@@ -20,28 +20,30 @@ function getSelectionText() {
   return text;
 }
 
-chrome.browserAction.onClicked.addListener(function() {
-  // first it should send a request to the server with the highlighted text
-  let highlighted = getSelectionText()
-  let response = ""
-  let array = [highlighted, response]
-  // then it should use the response to generate the page below
-  chrome.tabs.create({selected: false , url: chrome.extension.getURL('indexTab.html')})
-
-  console.log(highlighted)
-  return array
+let getPrevTab = chrome.tabs.query({active: true}, function(arr){
+  .then((arr) => {return console.log(arr)})
 });
 
-  chrome.tabs.query({active: true}, function() {
-    let highlighted = getSelectionText();
-    let response = "";
-    let array = [highlighted, response];
-    chrome.tabs.query({title: 'phrasel'}, function(){
-      document.getElementById('phrase').text(highlighted)
-      console.log(highlighted)
-    })
-
-  })
+console.log(prevTab)
+//
+// let highlighted = getSelectionText()
+// let response = ""
+// let array = [highlighted, response]
+// console.log(highlighted)
+// return array
+//
+// chrome.browserAction.onClicked.addListener(function() {
+//   // first it should send a request to the server with the highlighted text
+//   // then it should use the response to generate the page below
+//   chrome.tabs.create({selected: false, url: 'chrome-extension://ebncgjddlchicgnjcpahachcackiokfj/indexTab.html'})
+// });
+//
+// chrome.tabs.query({title: 'phrasel'}, function(){
+// })
+//
+// let phrase = document.getElementById('phrase')
+// //  phrase.text = highlighted.toString
+// console.log(array[0])
 
 
 
