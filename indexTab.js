@@ -23,16 +23,29 @@ function getSelectionText() {
 chrome.browserAction.onClicked.addListener(function() {
   // first it should send a request to the server with the highlighted text
   let highlighted = getSelectionText()
-
-
+  let response = ""
+  let array = [highlighted, response]
   // then it should use the response to generate the page below
-  chrome.tabs.create({selected: false ,url: chrome.extension.getURL('indexTab.html')})
+  chrome.tabs.create({selected: false , url: chrome.extension.getURL('indexTab.html')})
 
-  sendhighlighted(highlighted)
-  console.log("Hey, whaddup?")
-
+  console.log(highlighted)
+  return array
 });
-chrome.tabs.onCreated.addListener(function() {
-  console.log("please work please")
 
-})
+  chrome.tabs.query({active: true}, function() {
+    let highlighted = getSelectionText();
+    let response = "";
+    let array = [highlighted, response];
+    chrome.tabs.query({title: 'phrasel'}, function(){
+      document.getElementById('phrase').text(highlighted)
+      console.log(highlighted)
+    })
+
+  })
+
+
+
+// chrome.tabs.onCreated.addListener(function() {
+//   $(document.body).css("background-color", "darkseagreen")
+//
+// })
