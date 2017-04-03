@@ -28,19 +28,25 @@ function getSelectionText() {
 // console.log(highlighted)
 // return array
 //
+function findHighlightedTextinTab (tabId, cb) {
+  let phrase = chrome.tabs.executeScript(tabId, function(){
+    let highlighted = getSelectionText()
+    cb(highlighted);
+  })
+}
+
 chrome.browserAction.onClicked.addListener(function() {
   // query to get active tab id
   let getPrevTab = chrome.tabs.query({active: true}, function(tabs){
     console.log('Tab ID: ', tabs[0].id )
     let currentTabId = tabs[0].id
-    return currentTabId
+
+    findHighlightedTextinTab(currentTabId function(){
+      
+    })
   });
-  console.log(currentTabId)
+  // console.log(currentTabId)
   // get the highlighted text from the active tab
-  let phrase = chrome.tabs.executeScript(getPrevTab, function(){
-  let highlighted = getSelectionText()
-  return highlighted;
-  })
   console.log(phrase)
   // generate the new tab with the base HTML
   chrome.tabs.create({selected: false, url: 'chrome-extension://ebncgjddlchicgnjcpahachcackiokfj/indexTab.html'})
