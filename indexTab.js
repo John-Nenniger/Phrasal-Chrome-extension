@@ -10,15 +10,7 @@ function sendhighlighted(highlighted) {
   .then(console.log(response))
 }
 
-function getSelectionText() {
-  var text = "";
-  if (window.getSelection) {
-    text = window.getSelection().toString();
-  } else if (document.selection && document.selection.type != "Control") {
-    text = document.selection.createRange().text;
-  }
-  return text;
-}
+
 
 
 //
@@ -27,32 +19,55 @@ function getSelectionText() {
 // let array = [highlighted, response]
 // console.log(highlighted)
 // return array
+// var highlighted;
 //
-function findHighlightedTextinTab (tabId, cb) {
-  let phrase = chrome.tabs.executeScript(tabId, function(){
-    let highlighted = getSelectionText()
-    cb(highlighted);
-  })
-}
+
+///////////////////////////////////////////////////////////////this is a disaster lets try again with getViews
+
+
+//  function findHighlightedTextinTab (tabId, cb) {
+//
+//     let phrase = chrome.tabs.executeScript(tabId, {code:
+//       `function getSelectionText() {
+//         let text = "";
+//         if (window.getSelection) {
+//           text = window.getSelection().toString();
+//         } else if (document.selection && document.selection.type != "Control") {
+//           text = document.selection.createRange().text;
+//         }
+//         return text;
+//       }
+//       let highlighted = getSelectionText()
+//       console.log(highlighted)
+//       return highlighted;`
+//     }, console.log)
+//
+//   }
+
+
+// function findHighlightedTextinTab (tabId) {
+//   return new Promise(function(resolve, reject){
+//     let highlighted = getSelectionText()
+//     console.log(highlighted)
+//   })
+
+  // let phrase = chrome.tabs.executeScript(tabId, {
+  //   cb(highlighted);
+  //
+  // })
+
+
 
 chrome.browserAction.onClicked.addListener(function() {
-  // query to get active tab id
-  let getPrevTab = chrome.tabs.query({active: true}, function(tabs){
-    console.log('Tab ID: ', tabs[0].id )
-    let currentTabId = tabs[0].id
-
-    findHighlightedTextinTab(currentTabId function(){
-      
-    })
-  });
-  // console.log(currentTabId)
-  // get the highlighted text from the active tab
-  console.log(phrase)
+  let views = chrome.extension.send()
+  console.log(views)
   // generate the new tab with the base HTML
   chrome.tabs.create({selected: false, url: 'chrome-extension://ebncgjddlchicgnjcpahachcackiokfj/indexTab.html'})
+  views = chrome.extension.getViews({type: 'tab'})
+  console.log(views)
 });
 // get the newly created tab
-  chrome.tabs.query({title: 'phrasal'})
+  // chrome.tabs.query({title: 'phrasal'})
   // add the highlighted text
   // and the query results
 
