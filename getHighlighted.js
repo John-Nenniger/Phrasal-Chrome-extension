@@ -20,5 +20,3 @@ chrome.runtime.onMessage.addListener(function(request, response, sendResponse){
     console.log(request);
     console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%');
 })
-
-// chrome.runtime.sendMessage({please: "work"});

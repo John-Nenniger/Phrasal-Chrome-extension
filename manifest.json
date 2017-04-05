@@ -8,18 +8,18 @@
    "default_icon": "icon.png"
   },
   "background": {
-    "scripts": ["indexTab.js"],
+    "scripts": ["background.js"],
     "persistent": false
   },
   "content_scripts": [
     {
-      "matches": ["http://*/*"],
-      "js": ["getHighlighted.js"],
+      "matches": ["<all_urls>"],
+      "js": ["getHighlighted.js", "indexTab.js"],
       "run_at": "document_start"
     }
   ],
   "permissions": [
          "tabs",
-         "https://*/*"
+         "<all_urls>"
        ]
 }
