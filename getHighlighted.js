@@ -14,6 +14,7 @@ function getSelectionText() {
 
 
 chrome.runtime.onMessage.addListener(function(request, response, sendResponse){
+  console.log("fired", request)
   let highlighted = getSelectionText();
     sendResponse({phrase: highlighted});
     console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%');

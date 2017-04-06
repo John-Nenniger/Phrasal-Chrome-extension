@@ -3,8 +3,11 @@ const baseURL = 'http://localhost:3000/api/v1/contents';
 function Q (query) { return document.querySelector(query) }
 function Qs (query) { return document.querySelectorAll(query) }
 
-function sendhighlighted(highlighted) {
-  fetch(`${baseURL}`, {
+function sendhighlighted(highlightObject) {
+  console.log('>>>>>>>>>>>>>>>>');
+  console.log(highlightObject);
+  console.log('>>>>>>>>>>>>>>>>');
+  return fetch(`${baseURL}`, {
         // to make a json request with fetch
         // you have to specify that information the hearders
         // - the Accept header tells the server what kind of data
@@ -18,7 +21,7 @@ function sendhighlighted(highlighted) {
         method: 'POST',
         // JSON.stringify transforms a JavaScript into a JSON formatted
         // string of text
-        body: JSON.stringify({highlighted})
+        body: JSON.stringify(highlightObject)
       })
     .then((r) => r.json())
     .catch(console.error)
@@ -32,20 +35,18 @@ console.log(tab.id)
 // set loading icon here
 chrome.tabs.sendMessage(tab.id, {todo: "Give me something"}, function(highlighted){
   console.log(highlighted);
-  return sendhighlighted(highlighted)
-          .then((response) => {response.json})
-    // reset to normal icon here
-    chrome.tabs.create({selected: false, url: 'chrome-extension://ebncgjddlchicgnjcpahachcackiokfj/indexTab.html'}, function(tab){
-      // so i can inject script into the page i just fucking made because I don't have permission what the fuck
-      // so instead I have to send the Json to indexTab.js which will then affect the DOM. This is actually not that bad
-
-      chrome.tabs.sendMessage(tab.id, highlighted, function(response){
-        // I shouldn't get a response back because indexTab.js should just finish creating the new tab for me
-        console.log(response)
+  return sendhighlighted({highlighted: highlighted})
+          .then((response) => {
+            // reset to normal icon here
+            chrome.tabs.create({selected: false, url: 'chrome-extension://ebncgjddlchicgnjcpahachcackiokfj/indexTab.html'}, function(tab){
+              console.log(response)
+              chrome.tabs.sendMessage(tab.id, response, function(reply){
+                // the console.log below should be undefined
+            })
         })
       })
     })
     //
   })
 
-  })
+  // })
