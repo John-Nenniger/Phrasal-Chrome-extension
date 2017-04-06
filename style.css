@@ -1,16 +1,10 @@
-.header{
-  width: 95vw;
-  height: 10vh;
-  background-color: SteelBlue;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
+a{
+  color: cadetblue;
 }
+
 body{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  background-color: Gainsboro;
+
+  /*background: linear-gradient(rgba(0, 99, 165, 0.5), rgba(0, 89, 150, 0.8)),
+    url("GqECvRo7wS8YIr859PyykCiQYC20e2hpamNsx_Dp17Q.jpg")*/
 }

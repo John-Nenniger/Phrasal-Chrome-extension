@@ -1,7 +1,5 @@
 console.log('I\'m inside getHighlighted');
 
-//
-// document.body.style.backgroundColor = 'blue'
 function getSelectionText() {
   let text = "";
   if (window.getSelection) {
@@ -17,7 +15,4 @@ chrome.runtime.onMessage.addListener(function(request, response, sendResponse){
   console.log("fired", request)
   let highlighted = getSelectionText();
     sendResponse({phrase: highlighted});
-    console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%');
-    console.log(request);
-    console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%');
 })
