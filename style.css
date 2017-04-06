@@ -1,3 +1,9 @@
+body{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+}
 .header{
   width: 95vw;
   height: 10vh;
@@ -8,14 +14,25 @@
   text-align: center;
 
 }
-body{
+.container{
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 95vw;
+  height: 10vh;
 }
 
-h1{
+h2{
   font-style: italic;
   font-family: cursive;
+}
+
+.matchitem{
+  text-align: left;
+
+}
+#index{
+  display: flex;
+  flex-direction: column;
 }

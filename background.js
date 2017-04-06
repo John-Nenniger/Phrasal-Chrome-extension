@@ -1,7 +1,5 @@
+// fetch
 const baseURL = 'http://localhost:3000/api/v1/contents';
-
-function Q (query) { return document.querySelector(query) }
-function Qs (query) { return document.querySelectorAll(query) }
 
 function sendhighlighted(highlightObject) {
   console.log('>>>>>>>>>>>>>>>>');
@@ -27,26 +25,46 @@ function sendhighlighted(highlightObject) {
     .catch(console.error)
 }
 
-
+// background.js
 chrome.browserAction.onClicked.addListener(function(tab) {
-// just check that i can access the current tabid
-console.log(tab.id)
-// send a message to the content script that gets highlighted text
-// set loading icon here
-chrome.tabs.sendMessage(tab.id, {todo: "Give me something"}, function(highlighted){
-  console.log(highlighted);
-  return sendhighlighted({highlighted: highlighted})
-          .then((response) => {
-            // reset to normal icon here
-            chrome.tabs.create({selected: false, url: 'chrome-extension://ebncgjddlchicgnjcpahachcackiokfj/indexTab.html'}, function(tab){
-              console.log(response)
-              chrome.tabs.sendMessage(tab.id, response, function(reply){
-                // the console.log below should be undefined
-            })
+  // just check that i can access the current tabid
+  console.log(tab.id)
+  // send a message to the content script that gets highlighted text
+  // set loading icon here
+  chrome.tabs.create({selected: false, url: 'chrome-extension://ebncgjddlchicgnjcpahachcackiokfj/indexTab.html'}, function(newTab){
+    console.log(newTab.id)
+    // chrome.tabs.sendMessage(tab.id, response, function(reply){
+      // the console.log below should be undefined
+  })
+
+  chrome.runtime.onMessage.addListener(function(request, response, sendResponse){
+    if (request.from === 'indexTab' && request.subject === 'getData') {
+      chrome.tabs.sendMessage(tab.id, {todo: "Give me something"}, function(highlightedText){
+        sendhighlighted({highlighted: highlightedText}).then((response) => {
+          sendResponse({matches: response});
         })
       })
-    })
-    //
+    }
+
+    return true // because of asynchronous sendResponse
   })
+
+
+  // chrome.tabs.sendMessage(tab.id, {todo: "Give me something"}, function(highlighted){
+  //   console.log(highlighted);
+  //   return sendhighlighted({highlighted: highlighted})
+  //           .then((response) => {
+  //             // reset to normal icon here
+  //             chrome.tabs.create({selected: false, url: 'chrome-extension://ebncgjddlchicgnjcpahachcackiokfj/indexTab.html'}, function(tab){
+  //               console.log(response)
+  //               chrome.tabs.sendMessage(tab.id, response, function(reply){
+  //                 // the console.log below should be undefined
+  //             })
+  //         })
+  //       })
+  //     })
+    //
+})
+
 
   // })
