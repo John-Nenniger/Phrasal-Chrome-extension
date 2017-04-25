@@ -1,4 +1,6 @@
-const baseURL = 'http://localhost:3000/api/v1/contents';
+
+
+const baseURL = ' https://phrasal-server.herokuapp.com/api/v1/contents';
 
 function sendhighlighted(highlightObject) {
   console.log(highlightObject);
@@ -14,7 +16,7 @@ function sendhighlighted(highlightObject) {
     .catch(console.error)
 }
 
-
+// this is the event listener for the button on the chrome browser
 chrome.browserAction.onClicked.addListener(function(tab) {
   chrome.tabs.create({selected: false, url: 'chrome-extension://ebncgjddlchicgnjcpahachcackiokfj/indexTab.html'}, function(newtab){
     // just check that i can access the current tabid
