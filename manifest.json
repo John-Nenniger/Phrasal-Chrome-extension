@@ -1,9 +1,9 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
 
-  "name": "phrasal",
+  "name": "Phrasal",
   "description": "This extension will compare a highlighted phrase with a database of news info",
-  "version": "1.0",
+  "version": "1.0.0",
   "browser_action": {
    "default_icon": "phrasal.png"
   },
@@ -20,6 +20,7 @@
   ],
   "permissions": [
          "tabs",
-         "<all_urls>"
+         "<all_urls>",
+         "https://phrasal-server.herokuapp.com/"
        ]
 }
